@@ -44,6 +44,7 @@ public class TechJobs {
 
                     ArrayList<String> results = JobData.findAll(columnChoice);
 
+                   // Arrays.sort(results);// alphabetizes results list? Had to import java.util Arrays - BLEH :/ try back laterz?
 
                     System.out.println("\n*** All " + columnChoices.get(columnChoice) + " Values ***");
 

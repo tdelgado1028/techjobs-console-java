@@ -105,11 +105,12 @@ public class JobData {
 
         ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
 
-        for(HashMap<String, String> entry : jobs){//allJobs){
+        for(HashMap<String, String> entry : allJobs){
             for (String akey : entry.keySet()){
                 String aValue = entry.get(akey);
                 if (aValue.toLowerCase().contains(value.toLowerCase())) { //if (aValue.contains(value)){
                     jobs.add(entry);
+                    break; // this will break out of akey loop to go to next entry loop, ergo no double hits
                 }
             }
         }
