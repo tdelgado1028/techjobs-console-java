@@ -60,6 +60,7 @@ public class JobData {
      *
      * For example, searching for employer "Enterprise" will include results
      * with "Enterprise Holdings, Inc".
+     * //or like searching for skills "java" should pull both Java and JavaScript! (AND Javascript --> case insensitove, yo)
      *
      * @param column   Column that should be searched.
      * @param value Value of teh field to search for
@@ -76,7 +77,7 @@ public class JobData {
 
             String aValue = row.get(column);
 
-            if (aValue.contains(value)) {
+            if (aValue.toUpperCase().contains(value.toUpperCase())) { //if (aValue.contains(value)){
                 jobs.add(row);
             }
         }
@@ -85,6 +86,37 @@ public class JobData {
     }
 
     /**
+     * Returns results of auto searching the entirety of jobs data, using
+     * inclusion of the search term.
+     *
+     * For example, searching for "Enterprise" will include results
+     * with "Enterprise Holdings, Inc" in employer.
+     * // A good check will be "in" should return Location:"Anywhere in US" ((have Web-Front End Positions))
+     * // AND Position:"Data Scientist / Business Intelligence
+     * //Minimum ((yeah, lot more, forgot about Name: "System Administrator" and name: "Software Engineer" to name a few...
+     *
+     * @param value Value of teh field to search for // teh field
+     * @return List of all jobs matching the criteria
+     */
+    public static ArrayList<HashMap<String, String>> findByValue(String value) {
+
+        // load data, if not already loaded
+        loadData();
+
+        ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
+
+        for(HashMap<String, String> entry : jobs){//allJobs){
+            for (String akey : entry.keySet()){
+                String aValue = entry.get(akey);
+                if (aValue.toLowerCase().contains(value.toLowerCase())) { //if (aValue.contains(value)){
+                    jobs.add(entry);
+                }
+            }
+        }
+
+        return jobs;
+    }
+     /**
      * Read in data from a CSV file and store it in a list
      */
     private static void loadData() {
